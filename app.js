@@ -29,7 +29,7 @@ const button = document.querySelector('button')
 const correctAnswers = ['A','B','B','A']
 const resultParagraph = document.createElement('p')
 
-form.addEventListener('submit', event => {
+const quizSubmitEvent = event => {
     event.preventDefault()
     let score = 0
     const userAnswers = [
@@ -40,13 +40,17 @@ form.addEventListener('submit', event => {
     ]
 
     userAnswers.forEach((userAnswer, index) => {
-        if (userAnswer === correctAnswers[index] ) {
+        const reviewAnswers = userAnswer === correctAnswers[index] 
+        if (reviewAnswers) {
             score += 25
             return
         }
     })
     
-    resultParagraph.textContent = `Você acertou ${score}% das perguntas!`
+    const resultMessage = `Você acertou ${score}% das perguntas!`
+    resultParagraph.textContent = resultMessage
     button.insertAdjacentElement('beforeend', resultParagraph)
 
-})
+}
+
+form.addEventListener('submit', quizSubmitEvent)
